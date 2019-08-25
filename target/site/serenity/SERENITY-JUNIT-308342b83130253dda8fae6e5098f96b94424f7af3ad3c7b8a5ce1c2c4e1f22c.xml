@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="1" failures="0" name="tests.GoogleTest" skipped="0" tests="1" time="1.27" timestamp="2019-08-25 06:41:41"><testcase classname="tests.GoogleTest" name="Search for term in google"><error message="Could not instantiate class org.openqa.selenium.chrome.ChromeDriver" type="net.thucydides.core.webdriver.DriverConfigurationError">Could not instantiate class org.openqa.selenium.chrome.ChromeDriver</error><system-err>Could not instantiate class org.openqa.selenium.chrome.ChromeDriver&#13;
+pages.GooglePage.searchForTerm(GooglePage.java:17)&#13;
+steps.GoogleSteps.searchForTermInGoogle(GoogleSteps.java:12)&#13;
+tests.GoogleTest.searchForTermInGoogle(GoogleTest.java:23)&#13;
+</system-err></testcase></testsuite>

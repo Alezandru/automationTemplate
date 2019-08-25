@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="serenity.tests.SearchByKeywordStory" skipped="0" tests="1" time="8.74" timestamp="2019-08-25 08:54:14"><testcase classname="serenity.tests.SearchByKeywordStory" name="Searching by keyword apple should display the corresponding article"/></testsuite>
