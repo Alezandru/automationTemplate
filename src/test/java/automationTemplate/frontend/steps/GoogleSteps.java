@@ -1,7 +1,7 @@
-package serenity.steps;
+package automationTemplate.frontend.steps;
 
 import net.thucydides.core.annotations.Step;
-import serenity.pages.GooglePage;
+import automationTemplate.frontend.pages.GooglePage;
 
 public class GoogleSteps {
 

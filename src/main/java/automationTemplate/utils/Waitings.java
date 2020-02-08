@@ -1,4 +1,4 @@
-package serenity.utils;
+package automationTemplate.utils;
 
 import net.serenitybdd.core.pages.PageObject;
 

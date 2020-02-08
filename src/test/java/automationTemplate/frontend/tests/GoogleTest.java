@@ -1,4 +1,4 @@
-package serenity.tests;
+package automationTemplate.frontend.tests;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Issue;
@@ -11,15 +11,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import serenity.steps.GoogleSteps;
-import serenity.utils.Waitings;
+import automationTemplate.frontend.steps.GoogleSteps;
+import automationTemplate.utils.Waitings;
 
 import java.util.Date;
-import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 

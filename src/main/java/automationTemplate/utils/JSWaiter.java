@@ -1,4 +1,4 @@
-package serenity.utils;
+package automationTemplate.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
@@ -16,7 +16,6 @@ public class JSWaiter {
     private static JavascriptExecutor jsExec;
 
     public JSWaiter() {
-
         setDriver(getDriver());
     }
 
