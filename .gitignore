@@ -1,0 +1,9 @@
+# IntelliJ
+out/
+
+# Idea stuff:
+.idea
+.idea_modules
+
+# Maven template
+target/
