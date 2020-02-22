@@ -1,0 +1,108 @@
+#image: docker.domain.server.lan/internal/businesLine/ci-runner:latest
+
+variables:
+  VIRTUAL_ARTEFACTORY_REPO: businesLine-central
+  HTTP_PROXY: http://itproxy-dev.company.org:3128
+  HTTPS_PROXY: http://itproxy-dev.company.org:3128
+  http_proxy: http://itproxy-dev.company.org:3128
+  https_proxy: http://itproxy-dev.company.org:3128
+  # Domains that should not be run through gitlab proxy
+  no_proxy: 127.0.0.1,localhost,.businesLine.server.lan
+
+stages:
+  - TEST
+  - LIVE
+
+########## TEST env:
+##### Will run @ PUSH
+SMOKE_TEST_Chrome:
+  stage: TEST
+  script:
+    - mvn clean install -Dwebdriver.remote.url=http://selenium:4444/wd/hub -Dwebdriver.driver="chrome" -Dtags="smoke" -Denvironment="qa" -Dmaven.test.redirectTestOutputToFile=false
+  after_script:
+    - export UPLOAD_TARGET=blob-temporary-local/${CI_PROJECT_PATH}/${CI_PIPELINE_ID}/Chrome/
+    - zip -r test.zip target/site/serenity
+    - jfrog rt upload --build-name=$CI_PROJECT_PATH --build-number=$CI_PIPELINE_ID test.zip ${UPLOAD_TARGET}
+    - echo "https://repo.businesLine.server.lan/artefactory/${UPLOAD_TARGET}/test.zip!/target/site/serenity/index.html"
+  services:
+    - name: selenium/standalone-chrome
+      alias: selenium
+  tags:
+    - "capability:gitlab-runner-tag"
+  except:
+    - triggers
+
+##### Will run @ MANUAL TRIGGER
+SMOKE_TEST_Firefox:
+  stage: TEST
+  script:
+    - mvn clean install -Dwebdriver.remote.url=http://selenium:4444/wd/hub -Dwebdriver.driver="firefox" -Dtags="smoke" -Denvironment="qa" -Dmaven.test.redirectTestOutputToFile=false
+  after_script:
+    - export UPLOAD_TARGET=blob-temporary-local/${CI_PROJECT_PATH}/${CI_PIPELINE_ID}/Firefox/
+    - zip -r test.zip target/site/serenity
+    - jfrog rt upload --build-name=$CI_PROJECT_PATH --build-number=$CI_PIPELINE_ID test.zip ${UPLOAD_TARGET}
+    - echo "https://repo.businesLine.server.lan/artefactory/${UPLOAD_TARGET}/test.zip!/target/site/serenity/index.html"
+  services:
+    - name: selenium/standalone-firefox
+      alias: selenium
+  when: manual
+  tags:
+    - "capability:gitlab-runner-tag"
+  except:
+    - triggers
+
+##### Will run when TRIGGERED by another project
+REG_TEST_Chrome:
+  stage: TEST
+  script:
+    - mvn clean install -Dwebdriver.remote.url=http://selenium:4444/wd/hub -Dwebdriver.driver="chrome" -Dtags="regression" -Denvironment="qa" -Dmaven.test.redirectTestOutputToFile=false
+  after_script:
+    - export UPLOAD_TARGET=blob-temporary-local/${CI_PROJECT_PATH}/${CI_PIPELINE_ID}/Chrome/
+    - zip -r test.zip target/site/serenity
+    - jfrog rt upload --build-name=$CI_PROJECT_PATH --build-number=$CI_PIPELINE_ID test.zip ${UPLOAD_TARGET}
+    - echo "https://repo.businesLine.server.lan/artefactory/${UPLOAD_TARGET}/test.zip!/target/site/serenity/index.html"
+  services:
+    - name: selenium/standalone-chrome
+      alias: selenium
+  tags:
+    - "capability:gitlab-runner-tag"
+  only:
+    - triggers
+
+########## LIVE env:
+SMOKE_LIVE_Chrome:
+  stage: LIVE
+  script:
+    - mvn clean install -Dwebdriver.remote.url=http://selenium:4444/wd/hub -Dwebdriver.driver="chrome" -Dtags="smoke" -Denvironment="live" -Dmaven.test.redirectTestOutputToFile=false
+  after_script:
+    - export UPLOAD_TARGET=blob-temporary-local/${CI_PROJECT_PATH}/${CI_PIPELINE_ID}/Chrome/
+    - zip -r test.zip target/site/serenity
+    - jfrog rt upload --build-name=$CI_PROJECT_PATH --build-number=$CI_PIPELINE_ID test.zip ${UPLOAD_TARGET}
+    - echo "https://repo.businesLine.server.lan/artefactory/${UPLOAD_TARGET}/test.zip!/target/site/serenity/index.html"
+  services:
+    - name: selenium/standalone-chrome
+      alias: selenium
+  when: manual
+  tags:
+    - "capability:gitlab-runner-tag"
+  except:
+    - triggers
+
+##### Will run @ MANUAL TRIGGER
+SMOKE_LIVE_Firefox:
+  stage: LIVE
+  script:
+    - mvn clean install -Dwebdriver.remote.url=http://selenium:4444/wd/hub -Dwebdriver.driver="firefox" -Dtags="smoke" -Denvironment="live" -Dmaven.test.redirectTestOutputToFile=false
+  after_script:
+    - export UPLOAD_TARGET=blob-temporary-local/${CI_PROJECT_PATH}/${CI_PIPELINE_ID}/Firefox/
+    - zip -r test.zip target/site/serenity
+    - jfrog rt upload --build-name=$CI_PROJECT_PATH --build-number=$CI_PIPELINE_ID test.zip ${UPLOAD_TARGET}
+    - echo "https://repo.businesLine.server.lan/artefactory/${UPLOAD_TARGET}/test.zip!/target/site/serenity/index.html"
+  services:
+    - name: selenium/standalone-firefox
+      alias: selenium
+  when: manual
+  tags:
+    - "capability:gitlab-runner-tag"
+  except:
+    - triggers

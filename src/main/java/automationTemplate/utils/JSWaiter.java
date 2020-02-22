@@ -11,6 +11,22 @@ import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver
 
 @Slf4j
 public class JSWaiter {
+
+    /*
+     * Waits for testing SPA web-apps
+     *
+     * 'document.readyState' - describes the loading state of the document
+     * loading - document is still loading
+     * interactive - document has finished loading but images, stylesheets and frames are still loading
+     * complete - document and all sub-resources have finished loading
+     *
+     * jQuery library - event handling, CSS animations, Ajax, etc.
+     * 'jQuery.active' - if no ajax calls are running 'jQuery.active==0'
+     *
+     * For Angular apps check if 'AngularJS' is available and has finished all requests
+     *
+     * */
+
     private static WebDriver jsWaitDriver;
     private static WebDriverWait jsWait;
     private static JavascriptExecutor jsExec;
@@ -41,6 +57,9 @@ public class JSWaiter {
         }
     }
 
+    /*
+    *
+    * */
     private void waitForJSLoad() {
 
         try {
@@ -57,12 +76,6 @@ public class JSWaiter {
         } catch (WebDriverException ignored) {
         }
     }
-
-    private void waitForAngularLoad() {
-        String angularReadyScript = "return angular.element(document).injector().get('$http').pendingRequests.length === 0";
-        angularLoads(angularReadyScript);
-    }
-
 
 //    private boolean waitForJStoLoad() {
 //
@@ -90,6 +103,10 @@ public class JSWaiter {
 //        return wait.until(jQueryLoad) && wait.until(jsLoad);
 //    }
 
+    private void waitForAngularLoad() {
+        String angularReadyScript = "return angular.element(document).injector().get('$http').pendingRequests.length === 0";
+        angularLoads(angularReadyScript);
+    }
 
     private void waitUntilJSReady() {
         boolean jsReady = !jsExec.executeScript("return document.readyState")
