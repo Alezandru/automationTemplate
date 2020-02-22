@@ -70,6 +70,7 @@ REG_TEST_Chrome:
     - triggers
 
 ########## LIVE env:
+##### Will run @ MANUAL TRIGGER
 SMOKE_LIVE_Chrome:
   stage: LIVE
   script:
