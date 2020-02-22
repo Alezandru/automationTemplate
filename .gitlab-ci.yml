@@ -1,7 +1,7 @@
 #image: docker.domain.server.lan/internal/businesLine/ci-runner:latest
 
 variables:
-  VIRTUAL_ARTEFACTORY_REPO: businesLine-central
+  VIRTUAL_ARTIFACTORY_REPO: businesLine-central
   HTTP_PROXY: http://itproxy-dev.company.org:3128
   HTTPS_PROXY: http://itproxy-dev.company.org:3128
   http_proxy: http://itproxy-dev.company.org:3128
